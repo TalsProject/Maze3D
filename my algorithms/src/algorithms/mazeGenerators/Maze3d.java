@@ -47,6 +47,78 @@ public class Maze3d {
 		maze3d = new int[rows][cols][hight];
 	}
 	
+	public Maze3d(byte[] bytes) {		
+		this.rows = bytes[0];
+		this.cols = bytes[1];
+		this.hight = bytes[2];
+		this.startPosition = new Position(bytes[3],bytes[4],bytes[5]);
+		this.goalPosition = new Position(bytes[6],bytes[7],bytes[8]);
+
+
+		maze3d = new int[rows][cols][hight];
+		
+		int i = 0;
+		for (int x = 0; x < this.rows; x++){
+			for (int y = 0; y < this.cols; y++) {
+				for (int z = 0; z < this.hight; z++) {
+					maze3d [x][y][z] = bytes[i + 9];
+					i++;
+				}
+			}
+		}
+		
+		
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Maze3d m = (Maze3d) obj;
+		if (m.getRows() != getRows() && m.getHight() != getHight() && m.getCols() != getCols()) {
+			return false;
+		}
+
+		for (int x = 0; x < getRows(); x++) {
+			for (int y = 0; y < getCols(); y++) {
+				for (int z = 0; z < getHight(); z++) {
+					if (m.maze3d[x][y][z] != maze3d[x][y][z]) {
+						return false;
+					}
+				}
+			}
+		}
+			
+		return true;
+	}
+	
+	public byte[] toByteArray() {
+		ArrayList<Byte> arr = new ArrayList<Byte>();
+		arr.add((byte)rows);
+		arr.add((byte)cols);
+		arr.add((byte)hight);
+		arr.add((byte)startPosition.x);
+		arr.add((byte)startPosition.y);
+		arr.add((byte)startPosition.z);
+		arr.add((byte)goalPosition.x);
+		arr.add((byte)goalPosition.y);
+		arr.add((byte)goalPosition.z);
+		
+		for (int x = 0; x < rows; x++){
+			for (int y = 0; y < cols; y++) {
+				for (int z = 0; z < hight; z++) {
+					arr.add((byte)maze3d [x][y][z]);
+				}
+			}
+		}
+		
+		// Copy the array list to array of bytes
+		byte[] bytes = new byte[arr.size()];
+		for (int i = 0; i < arr.size(); i++) {
+			bytes[i] = arr.get(i);
+		}
+		return bytes;
+	}
+	
+	
 	/**
 	 * Gets the maze.
 	 *
@@ -334,7 +406,9 @@ public class Maze3d {
 		int[][] result = new int[rows][cols];
 		
 		for (int x = 0; x < rows; x++) {
+			
 			for (int y = 0; y < cols; y++) {
+				
 				result[x][y] = maze3d[x][y][index];
 			}
 		}
@@ -344,4 +418,5 @@ public class Maze3d {
 	
 	
 
+	
 }
