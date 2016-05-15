@@ -84,7 +84,7 @@ public class Maze3d {
 						return false;
 					}
 				}
-			}
+			} 
 		}
 			
 		return true;

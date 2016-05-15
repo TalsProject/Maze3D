@@ -1,5 +1,6 @@
 package io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -11,10 +12,16 @@ public class MyDecompressorInputStream extends InputStream {
 		_in = in;
 	}
 	
-	@Override
-	public int read(byte[] b) throws IOException {
-		
-		_in.read(b,0,9);
+	public byte[] readToByeArray() throws IOException {
+		ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+		read(byteArrayOut);
+		return byteArrayOut.toByteArray();
+	}
+	
+	public int read(ByteArrayOutputStream byteArrayOut) throws IOException {
+		for (int i = 0; i < 9; i++) {
+			byteArrayOut.write(_in.read());
+		}
 		
 		int lastByte = _in.read();
 		int size = _in.read();
@@ -23,8 +30,7 @@ public class MyDecompressorInputStream extends InputStream {
 		while (size!= -1){
 			
 			for (int i = 0; i < size; i++){
-			
-				b[count] = (byte) lastByte;
+				byteArrayOut.write(lastByte);
 				count++;
 			}
 		
@@ -40,7 +46,5 @@ public class MyDecompressorInputStream extends InputStream {
 	public int read() throws IOException {
 		return _in.read();
 	}
-
-
 }
 
