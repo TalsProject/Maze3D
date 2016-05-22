@@ -12,6 +12,5 @@ public class ExitCommand implements Command {
 	@Override
 	public void doCommand(String[] args) {
 		_model.interrupt();
-		Thread.interrupted();
 	}
 }

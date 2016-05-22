@@ -9,8 +9,8 @@ public interface Model {
 	public String getCrossSectionByX(String name, int index);
 	public String getCrossSectionByY(String name, int index);
 	public String getCrossSectionByZ(String name, int index);
-	public String mazeSize(String name);
-	public String fileSizeInBytes(String filePath);
+	public void mazeSize(String name);
+	public void fileSize(String filePath);
 	public void printFilesWithinDirectory(String filePath);
 	public void solveMaze(String name, String algoritem);
 	public void displaySolution(String name);

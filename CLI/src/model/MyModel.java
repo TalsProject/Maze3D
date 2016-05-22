@@ -1,8 +1,10 @@
 package model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +19,6 @@ import algorithms.search.DFS;
 import algorithms.search.Solution;
 import controller.Controller;
 import io.CompressorUtils;
-import model.utils.ObjectSizeFetcher;
 
 public class MyModel implements Model {
 	private Controller _controller;
@@ -140,18 +141,26 @@ public class MyModel implements Model {
 	}
 
 	@Override
-	public String mazeSize(String name) {
+	public void mazeSize(String name) {
 		if (!_mazes.containsKey(name)) {
-			return "Maze " + name + " does not exist\n";
+			_controller.displayMessage("Maze " + name + " does not exist\n");
 		}
 
-		return String.valueOf(ObjectSizeFetcher.getObjectSize(_mazes.get(name)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(_mazes.get(name));
+			_controller.displayMessage(baos.toByteArray().length + " Bytes\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public String fileSizeInBytes(String filePath) {
+	public void fileSize(String filePath) {
 		File file = new File(filePath);
-		return String.valueOf(file.length());
+		_controller.displayMessage(String.valueOf(file.length()) + " Bytes\n");
 	}
 
 	@Override

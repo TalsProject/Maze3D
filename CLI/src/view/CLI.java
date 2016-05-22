@@ -53,7 +53,9 @@ public class CLI {
 				_out.write("Enter command: ");
 				_out.flush();
 				line = _in.readLine();
-			}	
+			}
+			
+			_commands.get("exit").doCommand(null);
 			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

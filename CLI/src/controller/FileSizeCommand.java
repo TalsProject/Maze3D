@@ -1,14 +1,11 @@
 package controller;
 
 import model.Model;
-import view.View;
 
 public class FileSizeCommand implements Command {
-	private View _view;
 	private Model _model;
 	
-	public FileSizeCommand(View view, Model model) {
-		_view = view;
+	public FileSizeCommand(Model model) {
 		_model = model;
 	}	
 	
@@ -16,6 +13,6 @@ public class FileSizeCommand implements Command {
 	public void doCommand(String[] args) {
 		String filePath = args[0];
 		
-		_view.displayMessage(_model.fileSizeInBytes(filePath) + " Bytes \n");
+		_model.fileSize(filePath);
 	}
 }
