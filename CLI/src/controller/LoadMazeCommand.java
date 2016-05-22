@@ -12,10 +12,9 @@ public class LoadMazeCommand implements Command {
 	
 	@Override
 	public void doCommand(String[] args) {
-		String name = args[0];
-		String fileName = args[1];
+		String fileName = args[0];
+		String name = args[1];
 		
 		_model.loadMaze(fileName, name);
 	}
-
 }

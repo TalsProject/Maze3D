@@ -30,13 +30,16 @@ public class MyController implements Controller {
 		commands.put("generate_maze_3d", new Generate3dMazeCommand(model));
 		commands.put("save_maze", new SaveMazeCommand(model));
 		commands.put("load_maze", new LoadMazeCommand(model));
-		commands.put("dir", new DirCommand(view));
-		commands.put("display", new DisplayCommand(view, model));
-		commands.put("getCrossSectionByX", new GetCrossSectionByXCommand(view, model));
-		commands.put("getCrossSectionByY", new GetCrossSectionByYCommand(view, model));
-		commands.put("getCrossSectionByZ", new GetCrossSectionByZCommand(view, model));
-		commands.put("mazeSize", new MazeSizeCommand(view, model));
-		commands.put("fileSize", new FileSizeCommand(view, model));
+		commands.put("dir", new DirCommand(model));
+		commands.put("display", new DisplayCommand(model));
+		commands.put("display_cross_section_by_x", new GetCrossSectionByXCommand(view, model));
+		commands.put("display_cross_section_by_y", new GetCrossSectionByYCommand(view, model));
+		commands.put("display_cross_section_by_z", new GetCrossSectionByZCommand(view, model));
+		commands.put("maze_size", new MazeSizeCommand(view, model));
+		commands.put("file_size", new FileSizeCommand(view, model));
+		commands.put("solve", new SolveCommand(model));
+		commands.put("display_solution", new DisplaySolutionCommand(model));
+		commands.put("exit", new ExitCommand(model));
 		view.sendCommands(commands);
 	}
 }

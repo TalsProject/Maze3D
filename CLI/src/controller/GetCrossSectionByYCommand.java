@@ -14,8 +14,8 @@ public class GetCrossSectionByYCommand implements Command {
 	
 	@Override
 	public void doCommand(String[] args) {
-		String name = args[0];
-		int index = Integer.valueOf(args[1]);
+		int index = Integer.valueOf(args[0]);
+		String name = args[1];
 		
 		_view.displayMessage(_model.getCrossSectionByY(name, index));
 	}

@@ -3,9 +3,9 @@ package controller;
 import model.Model;
 
 public class Generate3dMazeCommand implements Command {
-	private Model _model;
+	private Model model;
 	public Generate3dMazeCommand(Model model) {
-		_model = model;
+		this.model = model;
 	}	
 	
 	@Override
@@ -15,7 +15,7 @@ public class Generate3dMazeCommand implements Command {
 		int cols = Integer.parseInt(args[2]);
 		int hight = Integer.parseInt(args[3]);
 		
-		_model.generateMaze(name, rows, cols, hight);
+		model.generateMaze(name, rows, cols, hight);
 	}
 
 }

@@ -2,19 +2,19 @@ package controller;
 
 import model.Model;
 
-public class SaveMazeCommand implements Command {
+public class SolveCommand implements Command {
 
 	private Model _model;
 	
-	public SaveMazeCommand(Model model) {
+	public SolveCommand(Model model) {
 		_model = model;
 	}
 	
 	@Override
 	public void doCommand(String[] args) {
 		String name = args[0];
-		String fileName = args[1];
+		String algoritem = args[1];
 		
-		_model.saveMaze(name, fileName);
+		_model.solveMaze(name, algoritem);
 	}
 }

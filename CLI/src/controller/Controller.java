@@ -1,10 +1,7 @@
 package controller;
 
-import view.View;
-
-import java.util.HashMap;
-
 import model.Model;
+import view.View;
 
 public interface Controller {
 	void setModel(Model model);

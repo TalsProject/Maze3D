@@ -3,24 +3,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
+
 import controller.Command;
 
 public class CLI {
-	private BufferedReader in;
-	private Writer out;
-	private HashMap<String, Command> commands;
+	private final BufferedReader _in;
+	private final Writer _out;
+	private final HashMap<String, Command> _commands;
 	
 	public CLI(BufferedReader in, Writer out, HashMap<String,Command> commands) {
-		this.in = in;
-		this.out = out;
-		this.commands = commands;
+		_in = in;
+		_out = out;
+		_commands = commands;
 	}
 	
 	public void start() {
 		try {
-			out.write("Enter command: ");
-			out.flush();
-			String line = in.readLine();
+			_out.write("Enter command: ");
+			_out.flush();
+			String line = _in.readLine();
 			while (!(line.equals("exit"))) {
 				
 				String[] arr = line.split(" ");
@@ -30,14 +31,14 @@ public class CLI {
 				Command command = null;
 				while (command == null && i < arr.length) {
 					str += arr[i];
-					command = commands.get(str);
+					command = _commands.get(str);
 					str += " ";
 					i++;
 				}
 				
 				if (command == null) {
-					out.write("Command not found\n");
-					out.flush();							
+					_out.write("Command not found\n");
+					_out.flush();							
 				} else {
 					
 					String[] args = null;
@@ -49,9 +50,9 @@ public class CLI {
 					command.doCommand(args);						
 				}						
 				
-				out.write("Enter command: ");
-				out.flush();
-				line = in.readLine();
+				_out.write("Enter command: ");
+				_out.flush();
+				line = _in.readLine();
 			}	
 			
 		} catch (IOException e) {
