@@ -49,7 +49,7 @@ public class MyController implements Controller {
 	 */
 	public void generateCommands() {
 		commands = new HashMap<String, Command>();
-		commands.put("generate_maze_3d", new Generate3dMazeCommand(model));
+		commands.put("generate_3d_maze", new Generate3dMazeCommand(view, model));
 		commands.put("save_maze", new SaveMazeCommand(model));
 		commands.put("load_maze", new LoadMazeCommand(model));
 		commands.put("dir", new DirCommand(view, model));
@@ -58,7 +58,7 @@ public class MyController implements Controller {
 		commands.put("display_cross_section_by_y", new GetCrossSectionByYCommand(view, model));
 		commands.put("display_cross_section_by_z", new GetCrossSectionByZCommand(view, model));
 		commands.put("maze_size", new MazeSizeCommand(model));
-		commands.put("file_size", new FileSizeCommand(model));
+		commands.put("file_size", new FileSizeCommand(view, model));
 		commands.put("solve", new SolveCommand(model));
 		commands.put("display_solution", new DisplaySolutionCommand(model));
 		commands.put("exit", new ExitCommand(model));
