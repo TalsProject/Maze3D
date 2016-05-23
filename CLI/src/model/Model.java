@@ -1,7 +1,6 @@
 package model;
 
 
-
 /**
  * The Interface Model.
  */
@@ -110,4 +109,6 @@ public interface Model {
 	 * @return true, if successful
 	 */
 	public boolean interrupt();
+	
+
 }
