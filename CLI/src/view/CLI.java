@@ -6,17 +6,37 @@ import java.util.HashMap;
 
 import controller.Command;
 
+
+/**
+ * The Class CLI.
+ */
 public class CLI {
+	
+	/** The in. */
 	private final BufferedReader _in;
+	
+	/** The out. */
 	private final Writer _out;
+	
+	/** The commands. */
 	private final HashMap<String, Command> _commands;
 	
+	/**
+	 * Instantiates a new CLI.
+	 *
+	 * @param in the in
+	 * @param out the out
+	 * @param commands the commands
+	 */
 	public CLI(BufferedReader in, Writer out, HashMap<String,Command> commands) {
 		_in = in;
 		_out = out;
 		_commands = commands;
 	}
 	
+	/**
+	 * Start.
+	 */
 	public void start() {
 		try {
 			_out.write("Enter command: ");

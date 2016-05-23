@@ -11,8 +11,16 @@ import model.MyModel;
 import view.MyView;
 import view.View;
 
+/**
+ * The Class Main.
+ */
 public class Main {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Controller controller = new MyController();
 		Model model = new MyModel(controller);

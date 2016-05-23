@@ -20,16 +20,36 @@ import algorithms.search.Solution;
 import controller.Controller;
 import io.CompressorUtils;
 
+
+/**
+ * The Class MyModel.
+ */
 public class MyModel implements Model {
+	
+	/** The controller. */
 	private Controller _controller;
+	
+	/** The threads. */
 	private List<Thread> _threads = new ArrayList<Thread>();
+	
+	/** The mazes. */
 	private Map<String, Maze3d> _mazes = new HashMap<String, Maze3d>();
+	
+	/** The solutions. */
 	private Map<String, Solution> _solutions = new HashMap<>();
 
+	/**
+	 * Instantiates a new my model.
+	 *
+	 * @param controller the controller
+	 */
 	public MyModel(Controller controller) {
 		this._controller = controller;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#generateMaze(java.lang.String, int, int, int)
+	 */
 	@Override
 	public void generateMaze(String name, int rows, int cols, int hight) {
 		Thread thread = new Thread(new Runnable() {
@@ -46,6 +66,9 @@ public class MyModel implements Model {
 		thread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#saveMaze(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void saveMaze(String name, String fileName) {
 		Thread thread = new Thread(new Runnable() {
@@ -72,6 +95,9 @@ public class MyModel implements Model {
 		thread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#loadMaze(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void loadMaze(String fileName, String name) {
 		Thread thread = new Thread(new Runnable() {
@@ -90,6 +116,9 @@ public class MyModel implements Model {
 		thread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#mazeToString(java.lang.String)
+	 */
 	@Override
 	public String mazeToString(String name) {
 		if (!_mazes.containsKey(name)) {
@@ -99,6 +128,9 @@ public class MyModel implements Model {
 		return _mazes.get(name).toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#getCrossSectionByX(java.lang.String, int)
+	 */
 	@Override
 	public String getCrossSectionByX(String name, int index) {
 		if (!_mazes.containsKey(name)) {
@@ -108,6 +140,9 @@ public class MyModel implements Model {
 		return intArrayToString(_mazes.get(name).getCrossSectionByX(index));
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#getCrossSectionByY(java.lang.String, int)
+	 */
 	@Override
 	public String getCrossSectionByY(String name, int index) {
 		if (!_mazes.containsKey(name)) {
@@ -117,6 +152,9 @@ public class MyModel implements Model {
 		return intArrayToString(_mazes.get(name).getCrossSectionByY(index));
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#getCrossSectionByZ(java.lang.String, int)
+	 */
 	@Override
 	public String getCrossSectionByZ(String name, int index) {
 		if (!_mazes.containsKey(name)) {
@@ -126,6 +164,12 @@ public class MyModel implements Model {
 		return intArrayToString(_mazes.get(name).getCrossSectionByZ(index));
 	}
 
+	/**
+	 * Int array to string.
+	 *
+	 * @param arr the array
+	 * @return the string
+	 */
 	public static String intArrayToString(int[][] arr) {
 		StringBuilder result = new StringBuilder();
 
@@ -140,6 +184,9 @@ public class MyModel implements Model {
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#mazeSize(java.lang.String)
+	 */
 	@Override
 	public void mazeSize(String name) {
 		if (!_mazes.containsKey(name)) {
@@ -158,6 +205,9 @@ public class MyModel implements Model {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#fileSize(java.lang.String)
+	 */
 	@Override
 	public void fileSize(String filePath) {
 		File file = new File(filePath);
@@ -169,6 +219,9 @@ public class MyModel implements Model {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#printFilesWithinDirectory(java.lang.String)
+	 */
 	@Override
 	public void printFilesWithinDirectory(String path) {
 		File file = new File(path);
@@ -192,6 +245,9 @@ public class MyModel implements Model {
 		_controller.displayMessage(result.toString());
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#solveMaze(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void solveMaze(String name, String algoritem) {
 		if (!_mazes.containsKey(name)) {
@@ -218,6 +274,9 @@ public class MyModel implements Model {
 		thread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#displaySolution(java.lang.String)
+	 */
 	@Override
 	public void displaySolution(String name) {
 		if (!_solutions.containsKey(name)) {
@@ -228,6 +287,11 @@ public class MyModel implements Model {
 		_controller.displayMessage(_solutions.get(name).toString());
 	}
 	
+	/**
+	 * Solve maze dfs.
+	 *
+	 * @param name the name
+	 */
 	private void solveMazeDFS(String name) {
 		MazeAdapter adapter = new MazeAdapter(_mazes.get(name));
 
@@ -237,6 +301,11 @@ public class MyModel implements Model {
 		_controller.displayMessage("Solution for " + name + " is ready\n");
 	}
 
+	/**
+	 * Solve maze breadthFS.
+	 *
+	 * @param name the name
+	 */
 	private void solveMazeBFS(String name) {
 		MazeAdapter adapter = new MazeAdapter(_mazes.get(name));
 
@@ -246,6 +315,11 @@ public class MyModel implements Model {
 		_controller.displayMessage("Solution for " + name + " is ready\n");
 	}
 
+	/**
+	 * Solve maze bestFS.
+	 *
+	 * @param name the name of the maze
+	 */
 	private void solveMazeBestFS(String name) {
 		MazeAdapter adapter = new MazeAdapter(_mazes.get(name));
 
@@ -255,6 +329,9 @@ public class MyModel implements Model {
 		_controller.displayMessage("Solution for " + name + " is ready\n");
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#interrupt()
+	 */
 	@Override
 	public boolean interrupt() {
 		for (Thread thread : _threads) {
