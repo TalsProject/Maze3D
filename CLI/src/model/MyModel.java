@@ -42,8 +42,8 @@ public class MyModel implements Model {
 				_threads.remove(Thread.currentThread());
 			}
 		});
-		thread.start();
 		_threads.add(thread);
+		thread.start();
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class MyModel implements Model {
 				_threads.remove(Thread.currentThread());
 			}
 		});
-		thread.start();
 		_threads.add(thread);
+		thread.start();
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class MyModel implements Model {
 				_threads.remove(Thread.currentThread());
 			}
 		});
-		thread.start();
 		_threads.add(thread);
+		thread.start();
 	}
 
 	@Override
@@ -144,6 +144,7 @@ public class MyModel implements Model {
 	public void mazeSize(String name) {
 		if (!_mazes.containsKey(name)) {
 			_controller.displayMessage("Maze " + name + " does not exist\n");
+			return;
 		}
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -160,7 +161,12 @@ public class MyModel implements Model {
 	@Override
 	public void fileSize(String filePath) {
 		File file = new File(filePath);
-		_controller.displayMessage(String.valueOf(file.length()) + " Bytes\n");
+		
+		if (file.isFile()) {
+			_controller.displayMessage(String.valueOf(file.length()) + " Bytes\n");
+		} else {
+			_controller.displayMessage("The file " + filePath + " doesn't exists.\n");
+		}
 	}
 
 	@Override
@@ -208,8 +214,8 @@ public class MyModel implements Model {
 				_threads.remove(Thread.currentThread());
 			}
 		});
-		thread.start();
 		_threads.add(thread);
+		thread.start();
 	}
 
 	@Override
@@ -229,7 +235,6 @@ public class MyModel implements Model {
 		Solution solution = dfs.search(adapter);
 		_solutions.put(name, solution);
 		_controller.displayMessage("Solution for " + name + " is ready\n");
-		_threads.remove(Thread.currentThread());
 	}
 
 	private void solveMazeBFS(String name) {
@@ -239,7 +244,6 @@ public class MyModel implements Model {
 		Solution solution = breadthFS.search(adapter);
 		_solutions.put(name, solution);
 		_controller.displayMessage("Solution for " + name + " is ready\n");
-		_threads.remove(Thread.currentThread());
 	}
 
 	private void solveMazeBestFS(String name) {
@@ -249,7 +253,6 @@ public class MyModel implements Model {
 		Solution solution = bestFS.search(adapter);
 		_solutions.put(name, solution);
 		_controller.displayMessage("Solution for " + name + " is ready\n");
-		_threads.remove(Thread.currentThread());
 	}
 
 	@Override

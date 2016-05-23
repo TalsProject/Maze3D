@@ -30,7 +30,7 @@ public class MyController implements Controller {
 		commands.put("generate_maze_3d", new Generate3dMazeCommand(model));
 		commands.put("save_maze", new SaveMazeCommand(model));
 		commands.put("load_maze", new LoadMazeCommand(model));
-		commands.put("dir", new DirCommand(model));
+		commands.put("dir", new DirCommand(view, model));
 		commands.put("display", new DisplayCommand(model));
 		commands.put("display_cross_section_by_x", new GetCrossSectionByXCommand(view, model));
 		commands.put("display_cross_section_by_y", new GetCrossSectionByYCommand(view, model));
