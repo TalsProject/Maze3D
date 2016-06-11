@@ -1,13 +1,13 @@
-package controller;
+package presenter;
 
 import model.Model;
 import view.View;
 
 
 /**
- * The Class GetCrossSectionByXCommand.
+ * The Class GetCrossSectionByZCommand.
  */
-public class GetCrossSectionByXCommand implements Command {
+public class GetCrossSectionByZCommand implements Command {
 	
 	/** The _view. */
 	private View _view;
@@ -16,12 +16,12 @@ public class GetCrossSectionByXCommand implements Command {
 	private Model _model;
 	
 	/**
-	 * gets the cross section by x command.
+	 * gets the cross section by z command.
 	 *
 	 * @param view the view
 	 * @param model the model
 	 */
-	public GetCrossSectionByXCommand(View view, Model model) {
+	public GetCrossSectionByZCommand(View view, Model model) {
 		_view = view;
 		_model = model;
 	}	
@@ -34,6 +34,6 @@ public class GetCrossSectionByXCommand implements Command {
 		int index = Integer.valueOf(args[0]);
 		String name = args[1];
 		
-		_view.displayMessage(_model.getCrossSectionByX(name, index));
+		_view.displayMessage(_model.getCrossSectionByZ(name, index));
 	}
 }

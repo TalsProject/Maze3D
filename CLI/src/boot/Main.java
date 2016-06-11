@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import controller.Controller;
-import controller.MyController;
-import model.Model;
 import model.MyModel;
+import presenter.Presenter;
 import view.MyView;
-import view.View;
 
 /**
  * The Class Main.
@@ -22,18 +19,27 @@ public class Main {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-		Controller controller = new MyController();
-		Model model = new MyModel(controller);
-		
+		// CLI
+		MyModel model = new MyModel();		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter out = new PrintWriter(System.out);
-		View view = new MyView(controller, in, out);
+		MyView view = new MyView(in, out);
 		
-		controller.setModel(model);
-		controller.setView(view);
+		Presenter presenter = new Presenter(model, view);
+		view.addObserver(presenter);
+		model.addObserver(presenter);
 		
-		controller.generateCommands();
 		view.start();
+		
+//		// SWT
+//		MyModel model = new MyModel();		
+//		MazeWindow view = new MazeWindow();
+//		
+//		Presenter presenter = new Presenter(model, view);
+//		view.addObserver(presenter);
+//		model.addObserver(presenter);
+//		
+//		view.start();	
 
 	}
 

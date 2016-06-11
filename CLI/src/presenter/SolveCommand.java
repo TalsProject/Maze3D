@@ -1,26 +1,26 @@
-package controller;
+package presenter;
 
 import model.Model;
 import view.View;
 
 
 /**
- * The Class LoadMazeCommand.
+ * The Class SolveCommand.
  */
-public class LoadMazeCommand implements Command {
+public class SolveCommand implements Command {
 
-	/** The _model. */
+	/** The model. */
 	private Model _model;
 	
 	/** The view. */
 	private View _view;
 	
 	/**
-	 * load maze command.
+	 * solve command.
 	 *
 	 * @param model the model
 	 */
-	public LoadMazeCommand(View view, Model model) {
+	public SolveCommand(View view, Model model) {
 		_model = model;
 		_view = view;
 	}
@@ -31,12 +31,12 @@ public class LoadMazeCommand implements Command {
 	@Override
 	public void doCommand(String[] args) {
 		if (args == null || args.length != 2) {
-			_view.displayMessage("load_maze command must contain 2 argument file path and a maze name\n");
+			_view.displayMessage("solve command must contain 2 argument a maze name and an algorithm \n");
 			return;
 		}
-		String fileName = args[0];
-		String name = args[1];
+		String name = args[0];
+		String algoritem = args[1];
 		
-		_model.loadMaze(fileName, name);
+		_model.solveMaze(name, algoritem);
 	}
 }

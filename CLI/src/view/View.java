@@ -1,9 +1,5 @@
 package view;
 
-import java.util.HashMap;
-
-import controller.Command;
-
 
 /**
  * The Interface View.
@@ -21,11 +17,4 @@ public interface View {
 	 * Start.
 	 */
 	void start();
-	
-	/**
-	 * Send commands.
-	 *
-	 * @param commands the commands
-	 */
-	void sendCommands(HashMap<String, Command> commands);
 }

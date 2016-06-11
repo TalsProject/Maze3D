@@ -1,13 +1,13 @@
-package controller;
+package presenter;
 
 import model.Model;
 import view.View;
 
 
 /**
- * The Class SolveCommand.
+ * The Class SaveMazeCommand.
  */
-public class SolveCommand implements Command {
+public class SaveMazeCommand implements Command {
 
 	/** The model. */
 	private Model _model;
@@ -16,11 +16,12 @@ public class SolveCommand implements Command {
 	private View _view;
 	
 	/**
-	 * solve command.
+	 * Instantiates a new save maze command.
 	 *
 	 * @param model the model
 	 */
-	public SolveCommand(View view, Model model) {
+	public SaveMazeCommand(View view, Model model) {
+		
 		_model = model;
 		_view = view;
 	}
@@ -31,12 +32,12 @@ public class SolveCommand implements Command {
 	@Override
 	public void doCommand(String[] args) {
 		if (args == null || args.length != 2) {
-			_view.displayMessage("solve command must contain 2 argument a maze name and an algorithm \n");
+			_view.displayMessage("save_maze command must contain 2 argument a maze name and a file path with no spaces \n");
 			return;
 		}
 		String name = args[0];
-		String algoritem = args[1];
+		String fileName = args[1];
 		
-		_model.solveMaze(name, algoritem);
+		_model.saveMaze(name, fileName);
 	}
 }

@@ -103,12 +103,13 @@ public interface Model {
 	 */
 	public void displaySolution(String name);
 	
+	public String getMessage();
+	
 	/**
 	 * Interrupt.
 	 *
 	 * @return true, if successful
 	 */
 	public boolean interrupt();
-	
 
 }

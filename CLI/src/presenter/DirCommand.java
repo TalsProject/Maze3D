@@ -1,28 +1,29 @@
-package controller;
+package presenter;
 
 import model.Model;
 import view.View;
 
 
 /**
- * The Class MazeSizeCommand.
+ * The Class DirCommand.
  */
-public class MazeSizeCommand implements Command {
+public class DirCommand implements Command {
 	
-	/** The _model. */
+	/** The model. */
 	private Model _model;
 	
 	/** The view. */
 	private View _view;
 	
 	/**
-	 * maze size command.
+	 * Instantiates a new dir command.
 	 *
+	 * @param view the view
 	 * @param model the model
 	 */
-	public MazeSizeCommand(View view, Model model) {
-		_model = model;
+	public DirCommand(View view, Model model) {
 		_view = view;
+		_model = model;
 	}	
 	
 	/* (non-Javadoc)
@@ -31,11 +32,11 @@ public class MazeSizeCommand implements Command {
 	@Override
 	public void doCommand(String[] args) {
 		if (args == null || args.length != 1) {
-			_view.displayMessage("maze_size command must contain 1 argument a maze name\n");
+			_view.displayMessage("Dir command must contain one argument\n");
 			return;
 		}
-		String name = args[0];
+		String path = args[0];
 		
-		_model.mazeSize(name);
+		_model.printFilesWithinDirectory(path);
 	}
 }

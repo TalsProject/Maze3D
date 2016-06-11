@@ -3,16 +3,14 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-
-import controller.Command;
-import controller.Controller;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
  * The Class MyView.
  */
-public class MyView implements View {
+public class MyView extends Observable implements View, Observer {
 
 	/** The in. */
 	private final BufferedReader _in;
@@ -22,7 +20,6 @@ public class MyView implements View {
 	
 	/** The CLI. */
 	private CLI _cli;
-
 	
 	/**
 	 * Instantiates a new my view.
@@ -31,9 +28,11 @@ public class MyView implements View {
 	 * @param in the BufferedReader
 	 * @param out the Writer
 	 */
-	public MyView(Controller controller, BufferedReader in, Writer out) {		
+	public MyView(BufferedReader in, Writer out) {		
 		_in = in;
 		_out = out;
+		_cli = new CLI(in, out);
+		_cli.addObserver(this);
 	}
 			
 	/* (non-Javadoc)
@@ -65,11 +64,11 @@ public class MyView implements View {
 		thread.start();
 	}
 
-	/* (non-Javadoc)
-	 * @see view.View#sendCommands(java.util.HashMap)
-	 */
 	@Override
-	public void sendCommands(HashMap<String, Command> commands) {
-		_cli = new CLI(_in, _out, commands);
+	public void update(Observable o, Object arg) {
+		if (o == _cli) {
+			this.setChanged();
+			this.notifyObservers(arg);			
+		}		
 	}
 }

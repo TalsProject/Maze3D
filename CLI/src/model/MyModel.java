@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
 import algorithms.demo.MazeAdapter;
 import algorithms.mazeGenerators.Maze3d;
@@ -17,17 +18,13 @@ import algorithms.search.BFS;
 import algorithms.search.BfsFactory;
 import algorithms.search.DFS;
 import algorithms.search.Solution;
-import controller.Controller;
 import io.CompressorUtils;
 
 
 /**
  * The Class MyModel.
  */
-public class MyModel implements Model {
-	
-	/** The controller. */
-	private Controller _controller;
+public class MyModel extends Observable implements Model {
 	
 	/** The threads. */
 	private List<Thread> _threads = new ArrayList<Thread>();
@@ -37,14 +34,20 @@ public class MyModel implements Model {
 	
 	/** The solutions. */
 	private Map<String, Solution> _solutions = new HashMap<>();
+	
+	private String _message;
 
+	
 	/**
 	 * Instantiates a new my model.
 	 *
 	 * @param controller the controller
 	 */
-	public MyModel(Controller controller) {
-		this._controller = controller;
+	public MyModel() {
+	}
+	
+	public String getMessage() {
+		return _message;
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +61,9 @@ public class MyModel implements Model {
 				MyMaze3dGenerator mg = new MyMaze3dGenerator();
 				Maze3d maze = mg.generate(rows, cols, hight);
 				_mazes.put(name, maze);
-				_controller.displayMessage("Maze " + name + " is ready\n");
+				
+				displayMassage("Maze " + name + " is ready");
+				
 				_threads.remove(Thread.currentThread());
 			}
 		});
@@ -75,14 +80,14 @@ public class MyModel implements Model {
 			@Override
 			public void run() {
 				if (!_mazes.containsKey(name)) {
-					_controller.displayMessage("Maze " + name + " does not exist\n");
+					displayMassage("Maze " + name + " does not exist\n");
 					return;
 				}
 				Maze3d maze = _mazes.get(name);
 
 				try {
 					CompressorUtils.writeToFile(fileName, maze);
-					_controller.displayMessage("Maze " + name + " saved at " + fileName + "\n");
+					displayMassage("Maze " + name + " saved at " + fileName + "\n");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -105,7 +110,7 @@ public class MyModel implements Model {
 			public void run() {
 				try {
 					_mazes.put(name, CompressorUtils.readFromFile(fileName));
-					_controller.displayMessage("Maze " + name + " loaded from " + fileName + "\n");
+					displayMassage("Maze " + name + " loaded from " + fileName + "\n");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -190,7 +195,7 @@ public class MyModel implements Model {
 	@Override
 	public void mazeSize(String name) {
 		if (!_mazes.containsKey(name)) {
-			_controller.displayMessage("Maze " + name + " does not exist\n");
+			displayMassage("Maze " + name + " does not exist\n");
 			return;
 		}
 
@@ -199,7 +204,7 @@ public class MyModel implements Model {
 		try {
 			oos = new ObjectOutputStream(baos);
 			oos.writeObject(_mazes.get(name));
-			_controller.displayMessage(baos.toByteArray().length + " Bytes\n");
+			displayMassage(baos.toByteArray().length + " Bytes\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -213,9 +218,9 @@ public class MyModel implements Model {
 		File file = new File(filePath);
 		
 		if (file.isFile()) {
-			_controller.displayMessage(String.valueOf(file.length()) + " Bytes\n");
+			displayMassage(String.valueOf(file.length()) + " Bytes\n");
 		} else {
-			_controller.displayMessage("The file " + filePath + " doesn't exists.\n");
+			displayMassage("The file " + filePath + " doesn't exists.\n");
 		}
 	}
 
@@ -242,7 +247,7 @@ public class MyModel implements Model {
 			result.append("The File Isn't exists or directory");
 		}
 
-		_controller.displayMessage(result.toString());
+		displayMassage(result.toString());
 	}
 
 	/* (non-Javadoc)
@@ -251,7 +256,7 @@ public class MyModel implements Model {
 	@Override
 	public void solveMaze(String name, String algoritem) {
 		if (!_mazes.containsKey(name)) {
-			_controller.displayMessage("Maze " + name + " does not exist\n");
+			displayMassage("Maze " + name + " does not exist\n");
 			return;
 		}
 
@@ -265,7 +270,7 @@ public class MyModel implements Model {
 				} else if (algoritem.equals("BestFS")) {
 					solveMazeBestFS(name);
 				} else {
-					_controller.displayMessage("The algoritem " + algoritem + " does not exist\n");
+					displayMassage("The algoritem " + algoritem + " does not exist\n");
 				}
 				_threads.remove(Thread.currentThread());
 			}
@@ -280,11 +285,11 @@ public class MyModel implements Model {
 	@Override
 	public void displaySolution(String name) {
 		if (!_solutions.containsKey(name)) {
-			_controller.displayMessage("Solution for the maze " + name + " does not exist\n");
+			displayMassage("Solution for the maze " + name + " does not exist\n");
 			return;
 		}
 		
-		_controller.displayMessage(_solutions.get(name).toString());
+		displayMassage(_solutions.get(name).toString());
 	}
 	
 	/**
@@ -298,7 +303,7 @@ public class MyModel implements Model {
 		DFS dfs = new DFS();
 		Solution solution = dfs.search(adapter);
 		_solutions.put(name, solution);
-		_controller.displayMessage("Solution for " + name + " is ready\n");
+		displayMassage("Solution for " + name + " is ready\n");
 	}
 
 	/**
@@ -312,7 +317,7 @@ public class MyModel implements Model {
 		BFS breadthFS = BfsFactory.getBreadthFS();
 		Solution solution = breadthFS.search(adapter);
 		_solutions.put(name, solution);
-		_controller.displayMessage("Solution for " + name + " is ready\n");
+		displayMassage("Solution for " + name + " is ready\n");
 	}
 
 	/**
@@ -326,7 +331,7 @@ public class MyModel implements Model {
 		BFS bestFS = BfsFactory.getBestFS();
 		Solution solution = bestFS.search(adapter);
 		_solutions.put(name, solution);
-		_controller.displayMessage("Solution for " + name + " is ready\n");
+		displayMassage("Solution for " + name + " is ready\n");
 	}
 
 	/* (non-Javadoc)
@@ -344,10 +349,14 @@ public class MyModel implements Model {
 			}
 		}
 		
-		_controller.displayMessage("Exit maze model\n");
+		displayMassage("Exit maze model\n");
 
 		return true;
 	}
 	
-
+	private void displayMassage(String msg) {
+		_message = msg;
+		setChanged();
+		notifyObservers("display_message");
+	}
 }
