@@ -105,6 +105,10 @@ public interface Model {
 	
 	public String getMessage();
 	
+	public void saveSolutions();
+	
+	public void readSolutions();
+	
 	/**
 	 * Interrupt.
 	 *

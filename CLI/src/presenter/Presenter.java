@@ -35,11 +35,13 @@ public class Presenter implements Observer {
 		viewCommands.put("file_size", new FileSizeCommand(view, model));
 		viewCommands.put("solve", new SolveCommand(view, model));
 		viewCommands.put("display_solution", new DisplaySolutionCommand(model));
+		viewCommands.put("read_solutions", new ReadSolutionsCommand(model));
 		viewCommands.put("exit", new ExitCommand(model));
 		
 		modelCommands = new HashMap<String, Command>();
 		modelCommands.put("display_message", new DisplayMessageCommand(model, view));
 		modelCommands.put("maze_ready", new MazeReadyCommand(view, model));
+		modelCommands.put("save_solutions", new SaveSolutionsCommand(model));
 	}
 
 	@Override

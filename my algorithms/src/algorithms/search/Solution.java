@@ -1,5 +1,6 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.List;
 
 import domains.State;
@@ -8,7 +9,12 @@ import domains.State;
 /**
  * The Class Solution.
  */
-public class Solution {
+public class Solution implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/** The states. */
 	private List<State> _states;

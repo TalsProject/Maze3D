@@ -1,11 +1,17 @@
 package domains;
 
+import java.io.Serializable;
 
 /**
  * The Class State.
  */
-public class State implements Comparable<State> {
+public class State implements Comparable<State>, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The description. */
 	private String _description;
 	
