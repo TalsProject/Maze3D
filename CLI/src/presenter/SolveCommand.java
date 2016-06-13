@@ -1,5 +1,6 @@
 package presenter;
 
+import boot.Main;
 import model.Model;
 import view.View;
 
@@ -30,12 +31,12 @@ public class SolveCommand implements Command {
 	 */
 	@Override
 	public void doCommand(String[] args) {
-		if (args == null || args.length != 2) {
-			_view.displayMessage("solve command must contain 2 argument a maze name and an algorithm \n");
+		if (args == null || args.length != 1) {
+			_view.displayMessage("solve command must contain maze name \n");
 			return;
 		}
 		String name = args[0];
-		String algoritem = args[1];
+		String algoritem = Main._prop.getAlgosolve();
 		
 		_model.solveMaze(name, algoritem);
 	}

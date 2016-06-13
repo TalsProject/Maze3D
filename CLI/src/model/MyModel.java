@@ -37,15 +37,13 @@ public class MyModel extends Observable implements Model {
 
 	private ExecutorService _executor;
 	
-	private static final int _threadsNum = 20;
-	
 	/**
 	 * Instantiates a new my model.
 	 *
 	 * @param controller the controller
 	 */
-	public MyModel() {
-		_executor = Executors.newFixedThreadPool(_threadsNum);
+	public MyModel(int threadsNum) {
+		_executor = Executors.newFixedThreadPool(threadsNum);
 	}
 	
 	public String getMessage() {

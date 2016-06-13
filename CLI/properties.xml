@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_91" class="java.beans.XMLDecoder">
+ <object class="presenter.Properties">
+  <void property="algosolve">
+   <string>DFS</string>
+  </void>
+  <void property="uitype">
+   <string>CLI</string>
+  </void>
+  <void property="threadNum">
+   <int>10</int>
+  </void>
+ </object>
+</java>
