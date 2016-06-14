@@ -6,6 +6,8 @@ import java.io.Writer;
 import java.util.Observable;
 import java.util.Observer;
 
+import algorithms.mazeGenerators.Maze3d;
+
 
 /**
  * The Class MyView.
@@ -70,5 +72,15 @@ public class MyView extends Observable implements View, Observer {
 			this.setChanged();
 			this.notifyObservers(arg);			
 		}		
+	}
+	
+	@Override
+	public void displayMaze(Maze3d maze) {
+		try {
+			_out.write(maze.toString());
+			_out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

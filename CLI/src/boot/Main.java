@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import model.MyModel;
 import presenter.Presenter;
 import presenter.Properties;
+import view.MazeWindow;
 import view.MyView;
 
 /**
@@ -42,13 +43,13 @@ public class Main {
 			view.addObserver(presenter);
 			view.start();	
 		} else {
-//			MazeWindow view = new MazeWindow();
-//			
-//			Presenter presenter = new Presenter(model, view);
-//			view.addObserver(presenter);
-//			model.addObserver(presenter);
-//			
-//			view.start();
+			MazeWindow view = new MazeWindow();
+			
+			Presenter presenter = new Presenter(model, view);
+			view.addObserver(presenter);
+			model.addObserver(presenter);
+			
+			view.start();
 		}
 	}
 }

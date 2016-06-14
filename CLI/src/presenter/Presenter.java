@@ -27,7 +27,7 @@ public class Presenter implements Observer {
 		viewCommands.put("save_maze", new SaveMazeCommand(view, model));
 		viewCommands.put("load_maze", new LoadMazeCommand(view, model));
 		viewCommands.put("dir", new DirCommand(view, model));
-		viewCommands.put("display", new DisplayCommand(view, model));
+		viewCommands.put("display_maze", new DisplayMazeCommand(view, model));
 		viewCommands.put("display_cross_section_by_x", new GetCrossSectionByXCommand(view, model));
 		viewCommands.put("display_cross_section_by_y", new GetCrossSectionByYCommand(view, model));
 		viewCommands.put("display_cross_section_by_z", new GetCrossSectionByZCommand(view, model));
@@ -36,27 +36,29 @@ public class Presenter implements Observer {
 		viewCommands.put("solve", new SolveCommand(view, model));
 		viewCommands.put("display_solution", new DisplaySolutionCommand(model));
 		viewCommands.put("read_solutions", new ReadSolutionsCommand(model));
+		viewCommands.put("move", new MoveCommand(model));
 		viewCommands.put("exit", new ExitCommand(model));
 		
 		modelCommands = new HashMap<String, Command>();
 		modelCommands.put("display_message", new DisplayMessageCommand(model, view));
 		modelCommands.put("maze_ready", new MazeReadyCommand(view, model));
 		modelCommands.put("save_solutions", new SaveSolutionsCommand(model));
+		modelCommands.put("display_maze", new DisplayMazeCommand(view, model));
+
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
+		String commandLine = (String)arg;
+		String[] arr = commandLine.split(" ");
+		String commandName = arr[0];
+		String[] args = new String[arr.length - 1];
+		System.arraycopy(arr, 1, args, 0, arr.length - 1);
+		
 		if (o == model) {
-			String commandName = (String)arg;
 			Command command = modelCommands.get(commandName);
-			command.doCommand(null);
+			command.doCommand(args);
 		} else if (o == view) {
-			String commandLine = (String)arg;
-			String[] arr = commandLine.split(" ");
-			String commandName = arr[0];
-			String[] args = new String[arr.length - 1];
-			System.arraycopy(arr, 1, args, 0, arr.length - 1);
-			
 			Command command = viewCommands.get(commandName);
 			command.doCommand(args);
 		}

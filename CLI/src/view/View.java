@@ -1,5 +1,6 @@
 package view;
 
+import algorithms.mazeGenerators.Maze3d;
 
 /**
  * The Interface View.
@@ -11,10 +12,13 @@ public interface View {
 	 *
 	 * @param message the message
 	 */
-	void displayMessage(String message);
+	public void displayMessage(String message);
+	
+	public void displayMaze(Maze3d maze);
+
 	
 	/**
 	 * Start.
 	 */
-	void start();
+	public void start();
 }

@@ -1,5 +1,7 @@
 package model;
 
+import algorithms.mazeGenerators.Direction;
+import algorithms.mazeGenerators.Maze3d;
 
 /**
  * The Interface Model.
@@ -108,6 +110,10 @@ public interface Model {
 	public void saveSolutions();
 	
 	public void readSolutions();
+	
+	public Maze3d getMaze(String name);
+	
+	public void move(String name, Direction directon);
 	
 	/**
 	 * Interrupt.

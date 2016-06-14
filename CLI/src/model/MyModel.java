@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import algorithms.demo.MazeAdapter;
+import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
 import algorithms.search.BFS;
@@ -290,6 +291,14 @@ public class MyModel extends Observable implements Model {
 		displayMassage(_solutions.get(maze).toString());
 	}
 	
+	@Override
+	public Maze3d getMaze(String name) {
+		if (_mazes.containsKey(name))
+			return _mazes.get(name);
+		else 
+			return null;
+	}
+	
 	public void saveSolutions() {
 		File dir = new File(".\\solutions");
 		try {
@@ -360,6 +369,14 @@ public class MyModel extends Observable implements Model {
 		displayMassage("Solution for " + name + " is ready\n");
 	}
 
+	public void move(String name, Direction direction) {
+		if (_mazes.get(name).move(direction)) {
+			setChanged();
+			notifyObservers("display_maze " + name);
+		}
+	}
+
+	
 	/* (non-Javadoc)
 	 * @see model.Model#interrupt()
 	 */
