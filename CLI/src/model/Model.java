@@ -2,6 +2,7 @@ package model;
 
 import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.search.Solution;
 
 /**
  * The Interface Model.
@@ -98,13 +99,6 @@ public interface Model {
 	 */
 	public void solveMaze(String name, String algoritem);
 	
-	/**
-	 * Display solution.
-	 *
-	 * @param name the name
-	 */
-	public void displaySolution(String name);
-	
 	public String getMessage();
 	
 	public void saveSolutions();
@@ -115,6 +109,12 @@ public interface Model {
 	
 	public void move(String name, Direction directon);
 	
+	public Solution getSolution(String name);
+	
+	public void reset(String name);
+
+	public void loadPropetties(String fileFullPath);
+
 	/**
 	 * Interrupt.
 	 *

@@ -35,6 +35,10 @@ public class Maze2DDisplay extends MazeDisplay {
 			}
 		}
 		
-		e.gc.drawImage(character, pos.x * w, pos.y * h);
+		e.gc.drawImage(character, 0, 0, 120, 84, playrPos.x * w, playrPos.y * h, w, h);
+		
+		if (playrPos.z == goalPosition.z) {
+			e.gc.drawImage(gate, 0, 0, 512, 504, goalPosition.x * w, goalPosition.y * h, w, h);
+		}
 	}
 }

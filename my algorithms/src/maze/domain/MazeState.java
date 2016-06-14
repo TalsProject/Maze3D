@@ -9,9 +9,6 @@ import domains.State;
  */
 public class MazeState extends State {
 	
-	
-
-	
 	/** The current player position. */
 	private Position _currPlayerPosition;
 	

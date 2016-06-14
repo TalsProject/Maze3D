@@ -1,6 +1,10 @@
 package domains;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import algorithms.mazeGenerators.Position;
 
 /**
  * The Class State.
@@ -30,6 +34,20 @@ public class State implements Comparable<State>, Serializable {
 		return _description;
 	}
 	
+	public Position getPosition() {
+		String pattern = "^\\((\\d+),(\\d+),(\\d+)\\)$";
+
+		// Create a Pattern object
+		Pattern r = Pattern.compile(pattern);
+
+		// Now create matcher object.
+		Matcher m = r.matcher(_description);
+		if (m.find()) {
+			return new Position(Integer.valueOf(m.group(1)), Integer.valueOf(m.group(2)), Integer.valueOf(m.group(3)));
+		}
+		
+		return null;
+	}
 	/**
 	 * Sets the description.
 	 *

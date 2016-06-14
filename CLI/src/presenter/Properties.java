@@ -9,17 +9,19 @@ public class Properties implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public String algosolve;
-	public String uitype;
-	public int threadNum;
+	private String algosolve;
+	private String uitype;
+	private int numberOfCells;
+	private int threadNum;
 
 	public Properties() {
 	}
 		
-	public Properties(String algosolve, String uitype, int threadNum) {
+	public Properties(String algosolve, String uitype, int numberOfCells, int threadNum) {
 		this.algosolve = algosolve;
 		this.uitype = uitype;
 		this.threadNum = threadNum;
+		this.numberOfCells = numberOfCells;
 	}
 
 	public String getUitype() {
@@ -36,6 +38,14 @@ public class Properties implements Serializable {
 
 	public void setAlgosolve(String algosolve) {
 		this.algosolve = algosolve;
+	}
+	
+	public int getNumberOfCells() {
+		return numberOfCells;
+	}
+
+	public void setNumberOfCells(int numberOfCells) {
+		this.numberOfCells = numberOfCells;
 	}
 	
 	public int getThreadNum() {

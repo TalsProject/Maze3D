@@ -32,7 +32,11 @@ public class Position implements Serializable {
 		this.z = z;
 	}
 	
-
+	@Override
+	public boolean equals(Object obj) {
+		Position pos = (Position) obj;
+		return x == pos.x && y == pos.y && z == pos.z;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

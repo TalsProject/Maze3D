@@ -8,7 +8,7 @@ import view.View;
 /**
  * The Class DisplayCommand.
  */
-public class DisplayMazeCommand implements Command {
+public class ResetMazeCommand implements Command {
 	
 	/** The model. */
 	private Model _model;
@@ -21,7 +21,7 @@ public class DisplayMazeCommand implements Command {
 	 *
 	 * @param model the model
 	 */
-	public DisplayMazeCommand(View view, Model model) {
+	public ResetMazeCommand(View view, Model model) {
 		_model = model;
 		_view = view;
 	}	
@@ -40,6 +40,7 @@ public class DisplayMazeCommand implements Command {
 			if (maze == null) {
 				_view.displayMessage("Please generate maze");
 			} else {
+				_model.reset(name);
 				_view.displayMaze(maze);
 			}
 		}

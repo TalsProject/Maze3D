@@ -1,6 +1,8 @@
 package presenter;
 
+import algorithms.search.Solution;
 import model.Model;
+import view.View;
 
 
 /**
@@ -8,7 +10,7 @@ import model.Model;
  */
 public class DisplaySolutionCommand implements Command {
 	
-	/** The model. */
+	private View _view;
 	private Model _model;
 	
 	/**
@@ -16,7 +18,8 @@ public class DisplaySolutionCommand implements Command {
 	 *
 	 * @param model the model
 	 */
-	public DisplaySolutionCommand(Model model) {
+	public DisplaySolutionCommand(View view, Model model) {
+		_view = view;
 		_model = model;
 	}	
 	
@@ -27,6 +30,10 @@ public class DisplaySolutionCommand implements Command {
 	public void doCommand(String[] args) {
 		String name = args[0];
 		
-		_model.displaySolution(name);
+		Solution solution = _model.getSolution(name);
+		
+		if (solution != null) {
+			_view.displaySolution(_model.getMaze(name), solution);
+		}
 	}
 }

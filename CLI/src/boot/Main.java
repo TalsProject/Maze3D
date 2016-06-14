@@ -18,7 +18,7 @@ import view.MyView;
  */
 public class Main {
 
-	public static Properties _prop = new Properties("DFS", "GUI", 10);
+	public static Properties _prop = new Properties("DFS", "GUI", 20, 10);
 	/**
 	 * The main method.
 	 *
@@ -26,7 +26,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		try (XMLDecoder myprop = new XMLDecoder(new FileInputStream("properties.xml"))) {
+		try (XMLDecoder myprop = new XMLDecoder(new FileInputStream(".\\resources\\properties.xml"))) {
 			_prop = (Properties) myprop.readObject();
 		} catch (IOException e){
 			e.printStackTrace();

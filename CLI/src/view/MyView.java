@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.search.Solution;
 
 
 /**
@@ -82,5 +83,10 @@ public class MyView extends Observable implements View, Observer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void displaySolution(Maze3d maze, Solution solution) {
+		displayMessage(solution.toString());
 	}
 }

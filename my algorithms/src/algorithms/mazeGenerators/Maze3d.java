@@ -30,6 +30,8 @@ public class Maze3d implements Serializable {
 	private Position goalPosition;
 
 	private Position playerPosition;
+	
+	private Direction lastMove;
 
 	/** The Constant WALL. */
 	public static final int WALL = 1;
@@ -206,6 +208,9 @@ public class Maze3d implements Serializable {
 		return playerPosition;
 	}
 
+	public Direction getLastMove() {
+		return lastMove;
+	}
 	/**
 	 * Prints the 3d array of the maze fluently with no levels
 	 */
@@ -261,6 +266,23 @@ public class Maze3d implements Serializable {
 		return hight;
 	}
 
+	public static Direction getDirectionBetweenPositions(Position firstPosition, Position secondPosition) {
+		if (firstPosition.x > secondPosition.x) {
+			return Direction.LEFT;
+		} else if (firstPosition.x < secondPosition.x) {
+			return Direction.RIGHT;
+		} else if (firstPosition.y > secondPosition.y) {
+			return Direction.FORWARD;
+		} else if (firstPosition.y < secondPosition.y) {
+			return Direction.BACKWARD;
+		} else if (firstPosition.z > secondPosition.z) {
+			return Direction.DOWN;
+		} else if (firstPosition.z < secondPosition.z) {
+			return Direction.UP;
+		}
+		return null;
+	}
+	
 	/**
 	 * This function get a position from the 3D maze and return its possible
 	 * moves from that point to a List of directions
@@ -290,66 +312,66 @@ public class Maze3d implements Serializable {
 		if (p.z < hight - 1 && maze3d[p.x][p.y][p.z + 1] == Maze3d.FREE) {
 			options.add(Direction.UP);
 		}
-		if (p.z < hight - 1 && p.y > 0 && maze3d[p.x][p.y - 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_FORWARD);
-		}
-		if (p.z < hight - 1 && p.y < cols - 1 && maze3d[p.x][p.y + 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_BACKWARD);
-		}
-		if (p.z < hight - 1 && p.x > 0 && maze3d[p.x - 1][p.y][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_LEFT);
-		}
-		if (p.z < hight - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_RIGHT);
-		}
-		if (p.z > 0 && p.y > 0 && maze3d[p.x][p.y - 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_FORWARD);
-		}
-		if (p.z > 0 && p.y < cols - 1 && maze3d[p.x][p.y + 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_BACKWARD);
-		}
-		if (p.z > 0 && p.x > 0 && maze3d[p.x - 1][p.y][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_LEFT);
-		}
-		if (p.z > 0 && p.x < rows - 1 && maze3d[p.x + 1][p.y][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_RIGHT);
-		}
-		if (p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z] == Maze3d.FREE) {
-			options.add(Direction.FORWARD_LEFT);
-		}
-		if (p.y > 0 && p.x < rows - 1 && maze3d[p.x + 1][p.y - 1][p.z] == Maze3d.FREE) {
-			options.add(Direction.FORWARD_RIGHT);
-		}
-		if (p.y < cols - 1 && p.x > 0 && maze3d[p.x - 1][p.y + 1][p.z] == Maze3d.FREE) {
-			options.add(Direction.BACKWARD_LEFT);
-		}
-		if (p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z] == Maze3d.FREE) {
-			options.add(Direction.BACKWARD_RIGHT);
-		}
-		if (p.z < hight - 1 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_FORWARD_LEFT);
-		}
-		if (p.z < hight - 1 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.UP_BACKWARD_LEFT);
-		}
-		if (p.z > 0 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.UP_FORWARD_RIGHT);
-		}
-		if (p.z > 0 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.UP_BACKWARD_RIGHT);
-		}
-		if (p.z < hight - 1 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_FORWARD_LEFT);
-		}
-		if (p.z < hight - 1 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z + 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_BACKWARD_LEFT);
-		}
-		if (p.z > 0 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_FORWARD_RIGHT);
-		}
-		if (p.z > 0 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z - 1] == Maze3d.FREE) {
-			options.add(Direction.DOWN_BACKWARD_RIGHT);
-		}
+//		if (p.z < hight - 1 && p.y > 0 && maze3d[p.x][p.y - 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_FORWARD);
+//		}
+//		if (p.z < hight - 1 && p.y < cols - 1 && maze3d[p.x][p.y + 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_BACKWARD);
+//		}
+//		if (p.z < hight - 1 && p.x > 0 && maze3d[p.x - 1][p.y][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_LEFT);
+//		}
+//		if (p.z < hight - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_RIGHT);
+//		}
+//		if (p.z > 0 && p.y > 0 && maze3d[p.x][p.y - 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_FORWARD);
+//		}
+//		if (p.z > 0 && p.y < cols - 1 && maze3d[p.x][p.y + 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_BACKWARD);
+//		}
+//		if (p.z > 0 && p.x > 0 && maze3d[p.x - 1][p.y][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_LEFT);
+//		}
+//		if (p.z > 0 && p.x < rows - 1 && maze3d[p.x + 1][p.y][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_RIGHT);
+//		}
+//		if (p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z] == Maze3d.FREE) {
+//			options.add(Direction.FORWARD_LEFT);
+//		}
+//		if (p.y > 0 && p.x < rows - 1 && maze3d[p.x + 1][p.y - 1][p.z] == Maze3d.FREE) {
+//			options.add(Direction.FORWARD_RIGHT);
+//		}
+//		if (p.y < cols - 1 && p.x > 0 && maze3d[p.x - 1][p.y + 1][p.z] == Maze3d.FREE) {
+//			options.add(Direction.BACKWARD_LEFT);
+//		}
+//		if (p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z] == Maze3d.FREE) {
+//			options.add(Direction.BACKWARD_RIGHT);
+//		}
+//		if (p.z < hight - 1 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_FORWARD_LEFT);
+//		}
+//		if (p.z < hight - 1 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_BACKWARD_LEFT);
+//		}
+//		if (p.z > 0 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_FORWARD_RIGHT);
+//		}
+//		if (p.z > 0 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.UP_BACKWARD_RIGHT);
+//		}
+//		if (p.z < hight - 1 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_FORWARD_LEFT);
+//		}
+//		if (p.z < hight - 1 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z + 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_BACKWARD_LEFT);
+//		}
+//		if (p.z > 0 && p.y > 0 && p.x > 0 && maze3d[p.x - 1][p.y - 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_FORWARD_RIGHT);
+//		}
+//		if (p.z > 0 && p.y < cols - 1 && p.x < rows - 1 && maze3d[p.x + 1][p.y + 1][p.z - 1] == Maze3d.FREE) {
+//			options.add(Direction.DOWN_BACKWARD_RIGHT);
+//		}
 
 		return options;
 	}
@@ -381,6 +403,8 @@ public class Maze3d implements Serializable {
 				playerPosition = new Position(playerPosition.x, playerPosition.y + 1, playerPosition.z);
 				break;
 			}
+			
+			lastMove = direction;
 			
 			return true;
 		}
@@ -462,5 +486,4 @@ public class Maze3d implements Serializable {
 
 		return result;
 	}
-
 }

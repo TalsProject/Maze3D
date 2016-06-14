@@ -12,12 +12,19 @@ public abstract class MazeDisplay extends Canvas {
 
 	protected abstract void drawMaze(PaintEvent e);
 	protected int[][] mazeData;
-	protected Position pos;
+	protected Position playrPos;
+	protected Position goalPosition;
 	protected Image character;
+	protected Image gate;
 	
-	public void setData(int[][] mazeData, Position pos, Image character) {
+	public void setGate(Image gate) {
+		this.gate = gate;
+	}
+	
+	public void setData(int[][] mazeData, Position playerPos, Position goalPosition, Image character) {
 		this.mazeData = mazeData;
-		this.pos = pos;
+		this.playrPos = playerPos;
+		this.goalPosition = goalPosition;
 		this.character = character;
 	}
 	

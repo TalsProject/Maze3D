@@ -1,7 +1,9 @@
 package model;
 
+import java.beans.XMLDecoder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,7 +21,9 @@ import algorithms.search.BFS;
 import algorithms.search.BfsFactory;
 import algorithms.search.DFS;
 import algorithms.search.Solution;
+import boot.Main;
 import io.CompressorUtils;
+import presenter.Properties;
 import utils.FileUtil;
 
 
@@ -253,7 +257,6 @@ public class MyModel extends Observable implements Model {
 			displayMassage("Maze " + name + " does not exist\n");
 			return;
 		} else if (_solutions.containsKey(_mazes.get(name))) {
-			displayMassage("Maze " + name + " already solved");
 		} else {
 			_executor.submit(new Callable<Boolean>() {
 				@Override
@@ -275,20 +278,17 @@ public class MyModel extends Observable implements Model {
 			});
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#displaySolution(java.lang.String)
-	 */
+	
 	@Override
-	public void displaySolution(String name) {
+	public Solution getSolution(String name) {
 		Maze3d maze = _mazes.get(name);
 
 		if (!_solutions.containsKey(maze)) {
 			displayMassage("Solution for the maze " + name + " does not exist\n");
-			return;
+			return null;
 		}
 		
-		displayMassage(_solutions.get(maze).toString());
+		return _solutions.get(maze);
 	}
 	
 	@Override
@@ -299,6 +299,7 @@ public class MyModel extends Observable implements Model {
 			return null;
 	}
 	
+	@Override
 	public void saveSolutions() {
 		File dir = new File(".\\solutions");
 		try {
@@ -309,6 +310,7 @@ public class MyModel extends Observable implements Model {
 		FileUtil.writeGZipCompressToFile(_solutions, ".\\solutions\\solutions.zip");
 	}
 	
+	@Override
 	public void readSolutions() {
 		File dir = new File(".\\solutions");
 		try {
@@ -322,6 +324,12 @@ public class MyModel extends Observable implements Model {
 		if (_solutions == null) {
 			_solutions = new HashMap();
 		}
+	}
+	
+	@Override
+	public void reset(String name) {
+		Maze3d maze = _mazes.get(name);
+		maze.setStartPosition(maze.getStartPosition());
 	}
 	
 	/**
@@ -370,12 +378,24 @@ public class MyModel extends Observable implements Model {
 	}
 
 	public void move(String name, Direction direction) {
-		if (_mazes.get(name).move(direction)) {
+		Maze3d maze = _mazes.get(name);
+		if (maze.move(direction)) {
 			setChanged();
 			notifyObservers("display_maze " + name);
+			
+			if (maze.getPlayerPosition().equals(maze.getGoalPosition())) {
+				displayMassage("CONGRATULATIONS!, you found the exit, you may cantinue play");
+			}
 		}
 	}
-
+	
+	public void loadPropetties(String fileFullPath) {
+		try (XMLDecoder myprop = new XMLDecoder(new FileInputStream(fileFullPath))) {
+			Main._prop = (Properties) myprop.readObject();
+		} catch (IOException e){
+			e.printStackTrace();
+		} 
+	}
 	
 	/* (non-Javadoc)
 	 * @see model.Model#interrupt()

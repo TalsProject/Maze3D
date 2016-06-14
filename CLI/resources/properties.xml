@@ -2,10 +2,13 @@
 <java version="1.8.0_91" class="java.beans.XMLDecoder">
  <object class="presenter.Properties">
   <void property="algosolve">
-   <string>DFS</string>
+   <string>BFS</string>
   </void>
   <void property="uitype">
    <string>GUI</string>
+  </void>
+  <void property="numberOfCells">
+   <int>20</int>
   </void>
   <void property="threadNum">
    <int>10</int>
