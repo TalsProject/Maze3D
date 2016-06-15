@@ -6,13 +6,26 @@ import org.eclipse.swt.widgets.Composite;
 
 import algorithms.mazeGenerators.Maze3d;
 
+
+/**
+ * The Class Maze2DDisplay.
+ */
 public class Maze2DDisplay extends MazeDisplay {
 
+	/**
+	 * Instantiates a new maze2 d display.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 */
 	public Maze2DDisplay(Composite parent, int style) {
 		super(parent, style);		
 		setBackground(new Color(null, 255, 255, 255));
 	}
 
+	/* (non-Javadoc)
+	 * @see view.MazeDisplay#drawMaze(org.eclipse.swt.events.PaintEvent)
+	 */
 	@Override
 	protected void drawMaze(PaintEvent e) {
 		if (mazeData == null)

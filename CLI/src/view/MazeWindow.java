@@ -26,18 +26,42 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import boot.Main;
 
+
+/**
+ * The Class MazeWindow.
+ */
 public class MazeWindow extends BasicWindow implements View {
 
+	/** The maze display. */
 	private MazeDisplay mazeDisplay;
+	
+	/** The x goal location. */
 	private Label xGoalLocation;
+	
+	/** The y goal location. */
 	private Label yGoalLocation;
+	
+	/** The z goal location. */
 	private Label zGoalLocation;
+	
+	/** The x location. */
 	private Label xLocation;
+	
+	/** The y location. */
 	private Label yLocation;
+	
+	/** The z location. */
 	private Label zLocation;
+	
+	/** The last move. */
 	private Label lastMove;
+	
+	/** The moves oprions. */
 	private Label movesOprions;
 
+	/* (non-Javadoc)
+	 * @see view.BasicWindow#initWidgets()
+	 */
 	@Override
 	public void initWidgets() {
 		character = new Image(display, ".\\resources\\images\\character.jpg");
@@ -213,6 +237,9 @@ public class MazeWindow extends BasicWindow implements View {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see view.View#displayMessage(java.lang.String)
+	 */
 	@Override
 	public void displayMessage(String message) {
 		display.syncExec(new Runnable() {
@@ -226,6 +253,12 @@ public class MazeWindow extends BasicWindow implements View {
 		});
 	}
 
+	/**
+	 * Help message.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 */
 	public void helpMessage(String title, String message) {
 		display.syncExec(new Runnable() {
 
@@ -239,20 +272,44 @@ public class MazeWindow extends BasicWindow implements View {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see view.View#start()
+	 */
 	@Override
 	public void start() {
 		this.run();
 	}
 
+	/**
+	 * The listener interface for receiving exit events.
+	 * The class that is interested in processing a exit
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addexitListener<code> method. When
+	 * the exit event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see exitEvent
+	 */
 	class exitListener implements SelectionListener {
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
+		 */
 		public void widgetDefaultSelected(SelectionEvent event) {
 		}
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+		 */
 		public void widgetSelected(SelectionEvent event) {
 			exit();
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see view.View#displayMaze(algorithms.mazeGenerators.Maze3d)
+	 */
 	@Override
 	public void displayMaze(Maze3d maze) {
 		Position goalPos = maze.getGoalPosition();
@@ -283,6 +340,9 @@ public class MazeWindow extends BasicWindow implements View {
 		mazeDisplay.redraw();
 	}
 
+	/* (non-Javadoc)
+	 * @see view.View#displaySolution(algorithms.mazeGenerators.Maze3d, algorithms.search.Solution)
+	 */
 	@Override
 	public void displaySolution(Maze3d maze, Solution solution) {
 		new Thread(new Runnable() {
@@ -307,6 +367,9 @@ public class MazeWindow extends BasicWindow implements View {
 		}).start();
 	}
 
+	/**
+	 * Inits the menu.
+	 */
 	private void initMenu() {
 		menuBar = new Menu(shell, SWT.BAR);
 		MenuItem fileMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
