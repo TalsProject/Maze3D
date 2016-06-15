@@ -64,8 +64,10 @@ public class MazeWindow extends BasicWindow implements View {
 	 */
 	@Override
 	public void initWidgets() {
-		character = new Image(display, ".\\resources\\images\\character.jpg");
-		gate = new Image(display, ".\\resources\\images\\gate.png");
+		String fileSeperator = Main._osProperties.fileSeperator;
+		
+		character = new Image(display, "." + fileSeperator + "resources" + fileSeperator + "images" + fileSeperator + "character.jpg");
+		gate = new Image(display, "." + fileSeperator + "resources" + fileSeperator + "images" + fileSeperator + "gate.png");
 
 		GridLayout gridLayout = new GridLayout(2, false);
 		shell.setText("MAZE 3D");

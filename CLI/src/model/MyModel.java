@@ -301,25 +301,29 @@ public class MyModel extends Observable implements Model {
 	
 	@Override
 	public void saveSolutions() {
-		File dir = new File(".\\solutions");
+		String fileSeperator = Main._osProperties.fileSeperator;
+		
+		File dir = new File("." + fileSeperator + "solutions");
 		try {
 			dir.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		FileUtil.writeGZipCompressToFile(_solutions, ".\\solutions\\solutions.zip");
+		FileUtil.writeGZipCompressToFile(_solutions, "." + fileSeperator + "solutions" + fileSeperator + "solutions.zip");
 	}
 	
 	@Override
 	public void readSolutions() {
-		File dir = new File(".\\solutions");
+		String fileSeperator = Main._osProperties.fileSeperator;
+		
+		File dir = new File("." + fileSeperator + "solutions");
 		try {
 			dir.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		_solutions = FileUtil.readGZipCompressFromFile(".\\solutions\\solutions.zip");
+		_solutions = FileUtil.readGZipCompressFromFile("." + fileSeperator + "solutions" + fileSeperator + "solutions.zip");
 		
 		if (_solutions == null) {
 			_solutions = new HashMap();

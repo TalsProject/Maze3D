@@ -2,6 +2,9 @@ package presenter;
 
 import java.io.Serializable;
 
+import env.OsFactory;
+import env.OsProperties;
+
 public class Properties implements Serializable {
 
 	/**
