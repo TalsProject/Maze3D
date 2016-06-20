@@ -27,6 +27,7 @@ import algorithms.search.Solution;
 import boot.Main;
 
 
+
 /**
  * The Class MazeWindow.
  */

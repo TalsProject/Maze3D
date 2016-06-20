@@ -7,13 +7,30 @@ import java.util.Observer;
 import model.Model;
 import view.View;
 
+
+/**
+ * The Class Presenter.
+ */
 public class Presenter implements Observer {
 	
+	/** The model. */
 	private Model model;
+	
+	/** The view. */
 	private View view;
+	
+	/** The view commands. */
 	private HashMap<String, Command> viewCommands;
+	
+	/** The model commands. */
 	private HashMap<String, Command> modelCommands;
 	
+	/**
+	 * Instantiates a new presenter.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public Presenter(Model model, View view) {
 		this.model = model;
 		this.view = view;
@@ -21,6 +38,9 @@ public class Presenter implements Observer {
 		buildCommands();
 	}
 	
+	/**
+	 * Builds the commands.
+	 */
 	private void buildCommands() {
 		viewCommands = new HashMap<String, Command>();
 		viewCommands.put("generate_3d_maze", new Generate3dMazeCommand(view, model));
@@ -49,6 +69,9 @@ public class Presenter implements Observer {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		String commandLine = (String)arg;
